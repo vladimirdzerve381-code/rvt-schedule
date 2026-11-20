@@ -74,14 +74,24 @@ nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(sa
 nav button{flex:1;border:0;background:none;color:var(--muted);padding:8px 4px;border-radius:24px;font:inherit;font-size:12px;cursor:pointer}
 nav button span{display:block;font-size:20px;line-height:1.1}
 nav button.on{background:var(--card2);color:var(--text);font-weight:700}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.refresh{flex:0 0 auto;width:46px;height:46px;margin-top:6px;border:0;border-radius:50%;background:var(--card);color:var(--accent);font-size:22px;cursor:pointer;display:grid;place-items:center}
+.refresh svg{width:22px;height:22px}
+.refresh.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .err{background:#4a2a2d;color:#ffd0cc;border-radius:16px;padding:14px;margin:16px 0}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">RVT</div>
-  <h1 id="title">Расписание</h1>
-  <div class="sub" id="subtitle">загрузка…</div>
+  <div class="top">
+    <div>
+      <div class="brand">RVT</div>
+      <h1 id="title">Расписание</h1>
+      <div class="sub" id="subtitle">загрузка…</div>
+    </div>
+    <button class="refresh" id="refresh" aria-label="Обновить" title="Обновить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+  </div>
 </header>
 <main id="view"></main>
 <nav>
@@ -96,7 +106,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   if (tg) {
     try { tg.ready(); tg.expand(); if (tg.colorScheme) document.documentElement.setAttribute("data-theme", tg.colorScheme); } catch (e) {}
   }
-  var DATA = null, tab = "home", weekDay = null, subsDay = null, loadError = null;
+  var DATA = null, tab = "home", weekDay = null, subsDay = null, loadError = null, loadedAt = null, refreshFailed = false;
   var DOW = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
   var KIND = {cancel: "ОТМЕНЕНО", change: "ИЗМЕНЕНИЕ", moved: "ПЕРЕНОС", added: "ДОБАВЛЕНО"};
   var ICON = {cancel: "✕", change: "↗", moved: "⇄", added: "＋"};
@@ -120,6 +130,9 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   function nextSchoolDay(date) {
     var after = DATA.days.filter(function (d) { return d.date > date && !d.off && d.blocks.length; });
     return after[0];
+  }
+  function noNext() {
+    return '<div class="meta">Расписание на следующие дни пока не опубликовано на сайте школы</div>';
   }
   function dmy(date) { return date.slice(8, 10) + "." + date.slice(5, 7); }
 
@@ -153,7 +166,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
     if (d.off || !d.blocks.length) {
       var nx = nextSchoolDay(now.date);
       return '<div class="hero calm"><div class="tag">' + (d.off ? "Выходной" : "Уроков нет") + '</div><div class="name">' + esc(d.off || "Сегодня уроков нет 🎉") + "</div>" +
-        (nx ? '<div class="meta">Дальше: ' + esc(nx.title) + ", первый урок в " + nx.blocks[0].start + "</div>" : "") + "</div>";
+        (nx ? '<div class="meta">Дальше: ' + esc(nx.title) + ", первый урок в " + nx.blocks[0].start + "</div>" : noNext()) + "</div>";
     }
     var bl = d.blocks, i, b;
     for (i = 0; i < bl.length; i++) {
@@ -173,7 +186,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
     }
     var nx2 = nextSchoolDay(now.date);
     return '<div class="hero calm"><div class="tag">На сегодня всё</div><div class="name">Уроки закончились 🏁</div>' +
-      (nx2 ? '<div class="meta">Дальше: ' + esc(nx2.title) + ", первый урок в " + nx2.blocks[0].start + "</div>" : "") + "</div>";
+      (nx2 ? '<div class="meta">Дальше: ' + esc(nx2.title) + ", первый урок в " + nx2.blocks[0].start + "</div>" : noNext()) + "</div>";
   }
 
   function viewHome() {
@@ -254,8 +267,12 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
     var h = tab === "home" ? viewHome() : tab === "week" ? viewWeek() : tab === "subs" ? viewSubs() : viewBells();
     var age = (Date.parse(DATA.updated.replace(" ", "T") + ":00+02:00") || 0);
     var stale = age && (Date.now() - age) > 3 * 3600 * 1000;
-    h += '<div class="stamp' + (stale ? " stale" : "") + '">данные от ' + esc(dmy(DATA.updated.slice(0, 10)) + " " + DATA.updated.slice(11, 16)) + (stale ? " ⚠️ бот давно не обновлял, возможно, он выключен" : "") + "</div>";
+    var loaded = loadedAt ? new Intl.DateTimeFormat("ru-RU", {timeZone: "Europe/Riga", hour: "2-digit", minute: "2-digit"}).format(loadedAt) : "";
+    h += '<div class="stamp' + (stale || refreshFailed ? " stale" : "") + '">' + (loaded ? "обновлено " + loaded + " · " : "") + "данные бота от " + esc(dmy(DATA.updated.slice(0, 10)) + " " + DATA.updated.slice(11, 16)) +
+      (refreshFailed ? "<br>⚠️ не получилось обновить, проверь интернет" : stale ? "<br>⚠️ бот давно не обновлял данные, возможно, он выключен" : "") + "</div>";
     v.innerHTML = h;
+    var on = v.querySelector(".pill.on");
+    if (on && on.scrollIntoView) { try { on.scrollIntoView({block: "nearest", inline: "center"}); } catch (e) {} }
   }
 
   document.querySelector("nav").addEventListener("click", function (e) {
@@ -270,11 +287,16 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
     render();
   });
 
-  function load() {
-    fetch("data.json?t=" + Date.now(), {cache: "no-store"}).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (j) { DATA = j; loadError = null; render(); })
-      .catch(function (e) { loadError = e; render(); });
+  function load(manual) {
+    var btn = $("refresh");
+    if (manual) btn.classList.add("spin");
+    var started = Date.now();
+    return fetch("data.json?t=" + Date.now(), {cache: "no-store"}).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { DATA = j; loadError = null; refreshFailed = false; loadedAt = new Date(); render(); })
+      .catch(function (e) { if (DATA) refreshFailed = true; else loadError = e; render(); })
+      .then(function () { setTimeout(function () { btn.classList.remove("spin"); }, Math.max(0, 600 - (Date.now() - started))); });
   }
+  $("refresh").addEventListener("click", function () { load(true); });
   load();
   setInterval(render, 15000);   // обратный отсчёт
   setInterval(load, 120000);    // свежие данные
