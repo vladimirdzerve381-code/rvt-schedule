@@ -2,7 +2,8 @@
  "class": "DT1-1",
  "group": "1",
  "tz": "Europe/Riga",
- "updated": "2026-11-21 01:13",
+ "updated": "2026-11-21 01:23",
+ "published_until": null,
  "bells": [
   {
    "num": 1,
@@ -61,6 +62,288 @@
   }
  ],
  "days": [
+  {
+   "date": "2026-11-16",
+   "title": "Понедельник, 16 ноября",
+   "weekday": 0,
+   "off": null,
+   "blocks": [
+    {
+     "num": 3,
+     "last": 4,
+     "start": "10:10",
+     "end": "11:35",
+     "subject": "Основы технических работ в ИКТ (практика)",
+     "teacher": "Kudrins Jurijs",
+     "room": "241",
+     "count": 2,
+     "emoji": "🔧",
+     "subs": []
+    },
+    {
+     "num": 5,
+     "last": 6,
+     "start": "12:05",
+     "end": "13:30",
+     "subject": "Разработка простых алгоритмов (практика)",
+     "teacher": "Cīrulis Aigars",
+     "room": "131",
+     "count": 2,
+     "emoji": "👨‍💻",
+     "subs": []
+    },
+    {
+     "num": 7,
+     "last": 7,
+     "start": "13:35",
+     "end": "14:15",
+     "subject": "Классный час",
+     "teacher": "Dīriņa Mārīte",
+     "room": "132",
+     "count": 1,
+     "emoji": "🏫",
+     "subs": []
+    },
+    {
+     "num": 8,
+     "last": 8,
+     "start": "14:20",
+     "end": "15:00",
+     "subject": "Английский язык",
+     "teacher": "Batura Svetlana",
+     "room": "313",
+     "count": 1,
+     "emoji": "🇬🇧",
+     "subs": []
+    },
+    {
+     "num": 9,
+     "last": 9,
+     "start": "15:05",
+     "end": "15:45",
+     "subject": "Латышский язык и литература",
+     "teacher": "Kovtona Ligita",
+     "room": "230",
+     "count": 1,
+     "emoji": "🇱🇻",
+     "subs": []
+    }
+   ],
+   "shift": [],
+   "checked": null,
+   "subs": []
+  },
+  {
+   "date": "2026-11-17",
+   "title": "Вторник, 17 ноября",
+   "weekday": 1,
+   "off": null,
+   "blocks": [
+    {
+     "num": 3,
+     "last": 3,
+     "start": "10:10",
+     "end": "10:50",
+     "subject": "Sabiedrības un cilvēka drošība",
+     "teacher": "Rekšņa Anita",
+     "room": "137",
+     "count": 1,
+     "emoji": "📘",
+     "subs": []
+    },
+    {
+     "num": 4,
+     "last": 6,
+     "start": "10:55",
+     "end": "13:30",
+     "subject": "Математика",
+     "teacher": "Zeikats Lourenss",
+     "room": "502",
+     "count": 3,
+     "emoji": "📐",
+     "subs": []
+    },
+    {
+     "num": 7,
+     "last": 9,
+     "start": "13:35",
+     "end": "15:45",
+     "subject": "Информационные и коммуникационные технологии",
+     "teacher": "Motivāne Aina",
+     "room": "131",
+     "count": 3,
+     "emoji": "💻",
+     "subs": []
+    },
+    {
+     "num": 10,
+     "last": 11,
+     "start": "15:50",
+     "end": "17:15",
+     "subject": "Основы технических работ в ИКТ (практика)",
+     "teacher": "Kudrins Jurijs",
+     "room": "241",
+     "count": 2,
+     "emoji": "🔧",
+     "subs": []
+    }
+   ],
+   "shift": [],
+   "checked": null,
+   "subs": []
+  },
+  {
+   "date": "2026-11-18",
+   "title": "Среда, 18 ноября",
+   "weekday": 2,
+   "off": "День провозглашения Латвийской Республики",
+   "blocks": [],
+   "shift": [],
+   "checked": null,
+   "subs": []
+  },
+  {
+   "date": "2026-11-19",
+   "title": "Четверг, 19 ноября",
+   "weekday": 3,
+   "off": null,
+   "blocks": [
+    {
+     "num": 1,
+     "last": 2,
+     "start": "08:30",
+     "end": "09:55",
+     "subject": "Основы технических работ в ИКТ (практика)",
+     "teacher": "Kudrins Jurijs",
+     "room": "241",
+     "count": 2,
+     "emoji": "🔧",
+     "subs": []
+    },
+    {
+     "num": 3,
+     "last": 4,
+     "start": "10:10",
+     "end": "11:35",
+     "subject": "Разработка простых алгоритмов (практика)",
+     "teacher": "Cīrulis Aigars",
+     "room": "352",
+     "count": 2,
+     "emoji": "👨‍💻",
+     "subs": []
+    },
+    {
+     "num": 5,
+     "last": 5,
+     "start": "12:05",
+     "end": "12:45",
+     "subject": "Математика",
+     "teacher": "Zeikats Lourenss",
+     "room": "502",
+     "count": 1,
+     "emoji": "📐",
+     "subs": []
+    },
+    {
+     "num": 6,
+     "last": 6,
+     "start": "12:50",
+     "end": "13:30",
+     "subject": "Выбор товаров и услуг для ИКТ-инфраструктуры",
+     "teacher": "Maļinovska Ineta",
+     "room": "",
+     "count": 1,
+     "emoji": "🛒",
+     "subs": []
+    },
+    {
+     "num": 7,
+     "last": 8,
+     "start": "13:35",
+     "end": "15:00",
+     "subject": "Информационные и коммуникационные технологии",
+     "teacher": "Motivāne Aina",
+     "room": "131",
+     "count": 2,
+     "emoji": "💻",
+     "subs": []
+    },
+    {
+     "num": 9,
+     "last": 9,
+     "start": "15:05",
+     "end": "15:45",
+     "subject": "Sabiedrības un cilvēka drošība",
+     "teacher": "Rekšņa Anita",
+     "room": "137",
+     "count": 1,
+     "emoji": "📘",
+     "subs": []
+    }
+   ],
+   "shift": [],
+   "checked": null,
+   "subs": []
+  },
+  {
+   "date": "2026-11-20",
+   "title": "Пятница, 20 ноября",
+   "weekday": 4,
+   "off": null,
+   "blocks": [
+    {
+     "num": 3,
+     "last": 4,
+     "start": "10:10",
+     "end": "11:35",
+     "subject": "Разработка простых алгоритмов (практика)",
+     "teacher": "Cīrulis Aigars",
+     "room": "131",
+     "count": 2,
+     "emoji": "👨‍💻",
+     "subs": []
+    },
+    {
+     "num": 5,
+     "last": 6,
+     "start": "12:05",
+     "end": "13:30",
+     "subject": "Основные процессы и виды работ в ИКТ",
+     "teacher": "Sabanska Olga",
+     "room": "354",
+     "count": 2,
+     "emoji": "🖥",
+     "subs": []
+    },
+    {
+     "num": 7,
+     "last": 8,
+     "start": "13:35",
+     "end": "15:00",
+     "subject": "Выбор товаров и услуг для ИКТ-инфраструктуры (практика)",
+     "teacher": "Maļinovska Ineta",
+     "room": "343",
+     "count": 2,
+     "emoji": "🛒",
+     "subs": []
+    },
+    {
+     "num": 9,
+     "last": 10,
+     "start": "15:05",
+     "end": "16:30",
+     "subject": "Основы технических работ в ИКТ (практика)",
+     "teacher": "Kudrins Jurijs",
+     "room": "241",
+     "count": 2,
+     "emoji": "🔧",
+     "subs": []
+    }
+   ],
+   "shift": [],
+   "checked": null,
+   "subs": []
+  },
   {
    "date": "2026-11-21",
    "title": "Суббота, 21 ноября",
@@ -149,7 +432,7 @@
     }
    ],
    "shift": [],
-   "checked": "01:12",
+   "checked": null,
    "subs": []
   },
   {
@@ -404,313 +687,6 @@
    "weekday": 6,
    "off": "Выходной",
    "blocks": [],
-   "shift": [],
-   "checked": null,
-   "subs": []
-  },
-  {
-   "date": "2026-11-30",
-   "title": "Понедельник, 30 ноября",
-   "weekday": 0,
-   "off": null,
-   "blocks": [
-    {
-     "num": 3,
-     "last": 4,
-     "start": "10:10",
-     "end": "11:35",
-     "subject": "Основы технических работ в ИКТ (практика)",
-     "teacher": "Kudrins Jurijs",
-     "room": "241",
-     "count": 2,
-     "emoji": "🔧",
-     "subs": []
-    },
-    {
-     "num": 5,
-     "last": 6,
-     "start": "12:05",
-     "end": "13:30",
-     "subject": "Разработка простых алгоритмов (практика)",
-     "teacher": "Cīrulis Aigars",
-     "room": "131",
-     "count": 2,
-     "emoji": "👨‍💻",
-     "subs": []
-    },
-    {
-     "num": 7,
-     "last": 7,
-     "start": "13:35",
-     "end": "14:15",
-     "subject": "Классный час",
-     "teacher": "Dīriņa Mārīte",
-     "room": "132",
-     "count": 1,
-     "emoji": "🏫",
-     "subs": []
-    },
-    {
-     "num": 8,
-     "last": 8,
-     "start": "14:20",
-     "end": "15:00",
-     "subject": "Английский язык",
-     "teacher": "Batura Svetlana",
-     "room": "313",
-     "count": 1,
-     "emoji": "🇬🇧",
-     "subs": []
-    },
-    {
-     "num": 9,
-     "last": 9,
-     "start": "15:05",
-     "end": "15:45",
-     "subject": "Латышский язык и литература",
-     "teacher": "Kovtona Ligita",
-     "room": "230",
-     "count": 1,
-     "emoji": "🇱🇻",
-     "subs": []
-    }
-   ],
-   "shift": [],
-   "checked": null,
-   "subs": []
-  },
-  {
-   "date": "2026-12-01",
-   "title": "Вторник, 1 декабря",
-   "weekday": 1,
-   "off": null,
-   "blocks": [
-    {
-     "num": 3,
-     "last": 3,
-     "start": "10:10",
-     "end": "10:50",
-     "subject": "Sabiedrības un cilvēka drošība",
-     "teacher": "Rekšņa Anita",
-     "room": "137",
-     "count": 1,
-     "emoji": "📘",
-     "subs": []
-    },
-    {
-     "num": 4,
-     "last": 6,
-     "start": "10:55",
-     "end": "13:30",
-     "subject": "Математика",
-     "teacher": "Zeikats Lourenss",
-     "room": "502",
-     "count": 3,
-     "emoji": "📐",
-     "subs": []
-    },
-    {
-     "num": 7,
-     "last": 9,
-     "start": "13:35",
-     "end": "15:45",
-     "subject": "Информационные и коммуникационные технологии",
-     "teacher": "Motivāne Aina",
-     "room": "131",
-     "count": 3,
-     "emoji": "💻",
-     "subs": []
-    },
-    {
-     "num": 10,
-     "last": 11,
-     "start": "15:50",
-     "end": "17:15",
-     "subject": "Основы технических работ в ИКТ (практика)",
-     "teacher": "Kudrins Jurijs",
-     "room": "241",
-     "count": 2,
-     "emoji": "🔧",
-     "subs": []
-    }
-   ],
-   "shift": [],
-   "checked": null,
-   "subs": []
-  },
-  {
-   "date": "2026-12-02",
-   "title": "Среда, 2 декабря",
-   "weekday": 2,
-   "off": null,
-   "blocks": [
-    {
-     "num": 1,
-     "last": 2,
-     "start": "08:30",
-     "end": "09:55",
-     "subject": "Латышский язык и литература",
-     "teacher": "Kovtona Ligita",
-     "room": "230",
-     "count": 2,
-     "emoji": "🇱🇻",
-     "subs": []
-    },
-    {
-     "num": 3,
-     "last": 3,
-     "start": "10:10",
-     "end": "10:50",
-     "subject": "Физкультура",
-     "teacher": "Manteifele Zane",
-     "room": "спортзал",
-     "count": 1,
-     "emoji": "🏃",
-     "subs": []
-    }
-   ],
-   "shift": [],
-   "checked": null,
-   "subs": []
-  },
-  {
-   "date": "2026-12-03",
-   "title": "Четверг, 3 декабря",
-   "weekday": 3,
-   "off": null,
-   "blocks": [
-    {
-     "num": 1,
-     "last": 2,
-     "start": "08:30",
-     "end": "09:55",
-     "subject": "Основы технических работ в ИКТ (практика)",
-     "teacher": "Kudrins Jurijs",
-     "room": "241",
-     "count": 2,
-     "emoji": "🔧",
-     "subs": []
-    },
-    {
-     "num": 3,
-     "last": 4,
-     "start": "10:10",
-     "end": "11:35",
-     "subject": "Разработка простых алгоритмов (практика)",
-     "teacher": "Cīrulis Aigars",
-     "room": "352",
-     "count": 2,
-     "emoji": "👨‍💻",
-     "subs": []
-    },
-    {
-     "num": 5,
-     "last": 5,
-     "start": "12:05",
-     "end": "12:45",
-     "subject": "Математика",
-     "teacher": "Zeikats Lourenss",
-     "room": "502",
-     "count": 1,
-     "emoji": "📐",
-     "subs": []
-    },
-    {
-     "num": 6,
-     "last": 6,
-     "start": "12:50",
-     "end": "13:30",
-     "subject": "Выбор товаров и услуг для ИКТ-инфраструктуры",
-     "teacher": "Maļinovska Ineta",
-     "room": "",
-     "count": 1,
-     "emoji": "🛒",
-     "subs": []
-    },
-    {
-     "num": 7,
-     "last": 8,
-     "start": "13:35",
-     "end": "15:00",
-     "subject": "Информационные и коммуникационные технологии",
-     "teacher": "Motivāne Aina",
-     "room": "131",
-     "count": 2,
-     "emoji": "💻",
-     "subs": []
-    },
-    {
-     "num": 9,
-     "last": 9,
-     "start": "15:05",
-     "end": "15:45",
-     "subject": "Sabiedrības un cilvēka drošība",
-     "teacher": "Rekšņa Anita",
-     "room": "137",
-     "count": 1,
-     "emoji": "📘",
-     "subs": []
-    }
-   ],
-   "shift": [],
-   "checked": null,
-   "subs": []
-  },
-  {
-   "date": "2026-12-04",
-   "title": "Пятница, 4 декабря",
-   "weekday": 4,
-   "off": null,
-   "blocks": [
-    {
-     "num": 3,
-     "last": 4,
-     "start": "10:10",
-     "end": "11:35",
-     "subject": "Разработка простых алгоритмов (практика)",
-     "teacher": "Cīrulis Aigars",
-     "room": "131",
-     "count": 2,
-     "emoji": "👨‍💻",
-     "subs": []
-    },
-    {
-     "num": 5,
-     "last": 6,
-     "start": "12:05",
-     "end": "13:30",
-     "subject": "Основные процессы и виды работ в ИКТ",
-     "teacher": "Sabanska Olga",
-     "room": "354",
-     "count": 2,
-     "emoji": "🖥",
-     "subs": []
-    },
-    {
-     "num": 7,
-     "last": 8,
-     "start": "13:35",
-     "end": "15:00",
-     "subject": "Выбор товаров и услуг для ИКТ-инфраструктуры (практика)",
-     "teacher": "Maļinovska Ineta",
-     "room": "343",
-     "count": 2,
-     "emoji": "🛒",
-     "subs": []
-    },
-    {
-     "num": 9,
-     "last": 10,
-     "start": "15:05",
-     "end": "16:30",
-     "subject": "Основы технических работ в ИКТ (практика)",
-     "teacher": "Kudrins Jurijs",
-     "room": "241",
-     "count": 2,
-     "emoji": "🔧",
-     "subs": []
-    }
-   ],
    "shift": [],
    "checked": null,
    "subs": []
