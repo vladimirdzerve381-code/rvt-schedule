@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Расписание DT1-1</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#0b0b0d; --card:#1b1b1f; --card2:#25252a; --text:#f2f2f4; --muted:#9a9aa3; --line:#2c2c32;
+  --accent:#e0504a; --accent2:#8b2a35; --ok:#3fb27f; --warn:#f5c518; --cancel:#6b6b73;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){--bg:#f2f2f6;--card:#fff;--card2:#ececf1;--text:#16161a;--muted:#6d6d78;--line:#e3e3ea;--cancel:#9a9aa3}
+}
+:root[data-theme="light"]{--bg:#f2f2f6;--card:#fff;--card2:#ececf1;--text:#16161a;--muted:#6d6d78;--line:#e3e3ea;--cancel:#9a9aa3}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:0 16px calc(96px + env(safe-area-inset-bottom));max-width:640px;margin:0 auto}
+header{padding:18px 0 6px}
+.brand{color:var(--accent);font-weight:700;letter-spacing:.08em;font-size:13px}
+h1{margin:2px 0 2px;font-size:26px;line-height:1.1}
+.sub{color:var(--muted);font-size:14px}
+.pills{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:0 0 auto;min-width:56px;padding:9px 10px;border-radius:16px;background:var(--card);border:0;color:var(--text);text-align:center;font:inherit;cursor:pointer}
+.pill small{display:block;color:var(--muted);font-size:12px}
+.pill b{font-size:18px}
+.pill.on{background:var(--accent)}
+.pill.on small{color:#ffe3e1}
+.pill .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn);margin-left:4px;vertical-align:middle}
+.hero{margin:14px 0;border-radius:24px;padding:20px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.hero.calm{background:var(--card);color:var(--text)}
+.hero .tag{font-size:13px;letter-spacing:.05em;opacity:.85;text-transform:uppercase}
+.hero .name{font-size:26px;font-weight:700;line-height:1.15;margin:8px 0 6px;overflow-wrap:anywhere}
+.hero .meta{opacity:.9;font-size:15px}
+.hero .left{margin-top:10px;font-weight:700;font-size:15px}
+.bar{height:6px;border-radius:3px;background:rgba(255,255,255,.28);margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;background:#fff;border-radius:3px;transition:width .6s}
+.note{background:var(--card);border-radius:18px;padding:12px 14px;margin:10px 0;font-size:15px}
+.note.warn{border-left:4px solid var(--warn)}
+.note.bad{border-left:4px solid var(--accent)}
+.note div+div{margin-top:4px}
+.list{background:var(--card);border-radius:24px;padding:4px 0;margin:12px 0}
+.row{display:flex;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.time{flex:0 0 54px;font-weight:700;font-size:17px}
+.time span{display:block;color:var(--muted);font-weight:400;font-size:14px}
+.stripe{flex:0 0 4px;border-radius:2px;background:var(--line)}
+.row.now .stripe{background:var(--accent)}
+.row.done{opacity:.5}
+.info{flex:1;min-width:0}
+.subject{font-weight:600;font-size:17px;overflow-wrap:anywhere}
+.details{color:var(--muted);font-size:15px;margin-top:2px}
+.badge{display:inline-block;margin-top:6px;padding:3px 8px;border-radius:10px;font-size:13px;background:var(--card2)}
+.badge.cancel{background:#4a2a2d;color:#ffb3ad}
+.badge.change{background:#4a4219;color:#ffe27a}
+.badge.moved,.badge.added{background:#183b30;color:#8ee0bc}
+:root[data-theme="light"] .badge.cancel{background:#ffe1de;color:#9a2a22}
+.empty{color:var(--muted);text-align:center;padding:36px 10px}
+.card{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-top:1px solid var(--line)}
+.card:first-child{border-top:0}
+.ico{flex:0 0 46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:20px;font-weight:700;background:var(--cancel);color:#fff}
+.ico.change{background:var(--warn);color:#222}
+.ico.moved,.ico.added{background:var(--ok)}
+.kind{font-size:13px;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.txt{overflow-wrap:anywhere;margin-top:2px}
+.bell{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--line)}
+.bell:first-child{border-top:0}
+.gap{padding:6px 16px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.stamp{text-align:center;color:var(--muted);font-size:14px;margin:18px 0}
+.stamp.stale{color:var(--warn)}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom));display:flex;gap:2px;background:var(--card);border-radius:30px;padding:6px;box-shadow:0 6px 24px rgba(0,0,0,.35);width:calc(100% - 24px);max-width:520px}
+nav button{flex:1;border:0;background:none;color:var(--muted);padding:8px 4px;border-radius:24px;font:inherit;font-size:12px;cursor:pointer}
+nav button span{display:block;font-size:20px;line-height:1.1}
+nav button.on{background:var(--card2);color:var(--text);font-weight:700}
+.err{background:#4a2a2d;color:#ffd0cc;border-radius:16px;padding:14px;margin:16px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">RVT</div>
+  <h1 id="title">Расписание</h1>
+  <div class="sub" id="subtitle">загрузка…</div>
+</header>
+<main id="view"></main>
+<nav>
+  <button data-tab="home" class="on"><span>🏠</span>Главная</button>
+  <button data-tab="week"><span>🗓</span>Неделя</button>
+  <button data-tab="subs"><span>🔄</span>Замены</button>
+  <button data-tab="bells"><span>⏰</span>Звонки</button>
+</nav>
+<script>
+(function () {
+  var tg = window.Telegram && window.Telegram.WebApp;
+  if (tg) {
+    try { tg.ready(); tg.expand(); if (tg.colorScheme) document.documentElement.setAttribute("data-theme", tg.colorScheme); } catch (e) {}
+  }
+  var DATA = null, tab = "home", weekDay = null, subsDay = null, loadError = null;
+  var DOW = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  var KIND = {cancel: "ОТМЕНЕНО", change: "ИЗМЕНЕНИЕ", moved: "ПЕРЕНОС", added: "ДОБАВЛЕНО"};
+  var ICON = {cancel: "✕", change: "↗", moved: "⇄", added: "＋"};
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
+
+  // «Сейчас» по Риге, независимо от часового пояса телефона
+  function rigaNow() {
+    var p = {};
+    new Intl.DateTimeFormat("en-GB", {timeZone: "Europe/Riga", hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit"})
+      .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+    return {date: p.year + "-" + p.month + "-" + p.day, min: (+p.hour) * 60 + (+p.minute) + (+p.second) / 60};
+  }
+  function mins(hhmm) { var a = hhmm.split(":"); return (+a[0]) * 60 + (+a[1]); }
+  function dur(m) {
+    m = Math.max(1, Math.ceil(m));
+    if (m >= 60) { var h = Math.floor(m / 60), r = m % 60; return h + " ч" + (r ? " " + (r < 10 ? "0" : "") + r + " мин" : ""); }
+    return m + " мин";
+  }
+  function dayOf(date) { return DATA.days.filter(function (d) { return d.date === date; })[0]; }
+  function nextSchoolDay(date) {
+    var after = DATA.days.filter(function (d) { return d.date > date && !d.off && d.blocks.length; });
+    return after[0];
+  }
+  function dmy(date) { return date.slice(8, 10) + "." + date.slice(5, 7); }
+
+  function lessonRow(b, state) {
+    var cls = "row" + (state === "now" ? " now" : state === "done" ? " done" : "");
+    var det = [];
+    if (b.teacher) det.push("👤 " + esc(b.teacher));
+    if (b.room) det.push("🚪 " + esc(b.room));
+    var extra = b.count > 1 ? " · " + b.count + " урока" : "";
+    var subs = (b.subs || []).map(function (s) { return '<div class="badge ' + s.kind + '">' + esc(s.text) + "</div>"; }).join("<br>");
+    return '<div class="' + cls + '"><div class="time">' + b.start + "<span>" + b.end + '</span></div><div class="stripe"></div><div class="info"><div class="subject">' +
+      esc(b.emoji) + " " + esc(b.subject) + extra + '</div><div class="details">' + det.join(" · ") + "</div>" + subs + "</div></div>";
+  }
+  function notes(day) {
+    var h = "";
+    if (day.shift && day.shift.length) {
+      h += '<div class="note warn"><b>📌 Что изменилось в дне</b>' + day.shift.map(function (x) { return "<div>" + esc(x) + "</div>"; }).join("") + "</div>";
+    }
+    return h;
+  }
+  function stateOf(b, now, isToday) {
+    if (!isToday) return "";
+    if (now.min >= mins(b.end)) return "done";
+    if (now.min >= mins(b.start)) return "now";
+    return "";
+  }
+
+  function hero(now) {
+    var d = dayOf(now.date);
+    if (!d) return '<div class="hero calm"><div class="tag">Нет данных</div><div class="name">Дата вне расписания</div></div>';
+    if (d.off || !d.blocks.length) {
+      var nx = nextSchoolDay(now.date);
+      return '<div class="hero calm"><div class="tag">' + (d.off ? "Выходной" : "Уроков нет") + '</div><div class="name">' + esc(d.off || "Сегодня уроков нет 🎉") + "</div>" +
+        (nx ? '<div class="meta">Дальше: ' + esc(nx.title) + ", первый урок в " + nx.blocks[0].start + "</div>" : "") + "</div>";
+    }
+    var bl = d.blocks, i, b;
+    for (i = 0; i < bl.length; i++) {
+      b = bl[i];
+      var s = mins(b.start), e = mins(b.end);
+      if (now.min < s) {
+        var first = i === 0;
+        return '<div class="hero"><div class="tag">' + (first ? "До первого урока" : "Перемена") + '</div><div class="name">' + esc(b.emoji + " " + b.subject) + '</div><div class="meta">' +
+          b.start + "–" + b.end + (b.room ? " · каб. " + esc(b.room) : "") + '</div><div class="left">ещё ' + dur(s - now.min) + "</div></div>";
+      }
+      if (now.min < e) {
+        var pct = Math.round((now.min - s) / (e - s) * 100);
+        return '<div class="hero"><div class="tag">Идёт урок</div><div class="name">' + esc(b.emoji + " " + b.subject) + '</div><div class="meta">' +
+          b.start + "–" + b.end + (b.room ? " · каб. " + esc(b.room) : "") + (b.teacher ? " · " + esc(b.teacher) : "") + '</div><div class="left">до конца ' + dur(e - now.min) +
+          '</div><div class="bar"><i style="width:' + pct + '%"></i></div></div>';
+      }
+    }
+    var nx2 = nextSchoolDay(now.date);
+    return '<div class="hero calm"><div class="tag">На сегодня всё</div><div class="name">Уроки закончились 🏁</div>' +
+      (nx2 ? '<div class="meta">Дальше: ' + esc(nx2.title) + ", первый урок в " + nx2.blocks[0].start + "</div>" : "") + "</div>";
+  }
+
+  function viewHome() {
+    var now = rigaNow(), d = dayOf(now.date);
+    var h = hero(now);
+    if (d) {
+      h += notes(d);
+      if (d.blocks.length) {
+        h += '<div class="list">' + d.blocks.map(function (b) { return lessonRow(b, stateOf(b, now, true)); }).join("") + "</div>";
+      }
+      if (d.checked) h += '<div class="stamp">замены проверены в ' + d.checked + "</div>";
+    }
+    return h;
+  }
+
+  function pills(days, selected, id, mark) {
+    return '<div class="pills" id="' + id + '">' + days.map(function (d) {
+      return '<button class="pill' + (d.date === selected ? " on" : "") + '" data-date="' + d.date + '"><small>' + DOW[d.weekday] + "</small><b>" + (+d.date.slice(8, 10)) + "</b>" +
+        (mark && mark(d) ? '<span class="dot"></span>' : "") + "</button>";
+    }).join("") + "</div>";
+  }
+  function weekdays() { return DATA.days.filter(function (d) { return d.weekday < 5; }); }
+
+  function viewWeek() {
+    var now = rigaNow(), days = weekdays();
+    if (!weekDay || !dayOf(weekDay)) weekDay = (dayOf(now.date) && dayOf(now.date).weekday < 5) ? now.date : (days[0] && days[0].date);
+    var d = dayOf(weekDay), h = pills(days, weekDay, "weekpills", function (x) { return x.subs.length; });
+    if (!d) return h;
+    h += '<div class="sub" style="margin-top:8px">' + esc(d.title) + "</div>" + notes(d);
+    if (d.off) h += '<div class="note">🎉 Выходной: ' + esc(d.off) + "</div>";
+    else if (!d.blocks.length) h += '<div class="empty">Уроков нет 🎉</div>';
+    else h += '<div class="list">' + d.blocks.map(function (b) { return lessonRow(b, stateOf(b, now, d.date === now.date)); }).join("") + "</div>";
+    return h;
+  }
+
+  function viewSubs() {
+    var now = rigaNow(), days = weekdays().filter(function (d) { return d.date >= now.date; });
+    var checked = days.filter(function (d) { return d.checked; });
+    var pick = checked.length ? checked : days.slice(0, 2);
+    if (!subsDay || !pick.some(function (d) { return d.date === subsDay; })) {
+      var withSubs = pick.filter(function (d) { return d.subs.length; })[0];
+      subsDay = (withSubs || pick[0] || {}).date;
+    }
+    var d = dayOf(subsDay);
+    var h = pills(pick, subsDay, "subpills", function (x) { return x.subs.length; });
+    if (!d) return h + '<div class="empty">Нет данных</div>';
+    h += '<div class="sub" style="margin-top:8px">' + esc(d.title) + "</div>" + notes(d);
+    if (!d.checked) return h + '<div class="empty">Замены на этот день ещё не проверялись</div>';
+    if (!d.subs.length) return h + '<div class="empty">✅ Замен нет</div>';
+    h += '<div class="list">' + d.subs.map(function (s) {
+      return '<div class="card"><div class="ico ' + s.kind + '">' + ICON[s.kind] + '</div><div><div class="kind">' + KIND[s.kind] + '</div><div class="txt">' + esc(s.text) + "</div></div></div>";
+    }).join("") + "</div>";
+    return h + '<div class="stamp">проверено в ' + d.checked + "</div>";
+  }
+
+  function viewBells() {
+    var b = DATA.bells || [];
+    if (!b.length) return '<div class="empty">Звонки пока недоступны</div>';
+    var h = '<div class="list">', prev = null;
+    b.forEach(function (x) {
+      if (prev) {
+        var gap = mins(x.start) - mins(prev.end);
+        if (gap >= 15) h += '<div class="gap">☕ перерыв ' + gap + " мин</div>";
+      }
+      h += '<div class="bell"><b>' + x.num + ". урок</b><span>" + x.start + "–" + x.end + "</span></div>";
+      prev = x;
+    });
+    return h + "</div>";
+  }
+
+  function render() {
+    var v = $("view");
+    if (loadError && !DATA) { v.innerHTML = '<div class="err">Не получилось загрузить данные. Проверь интернет и открой приложение ещё раз.</div>'; return; }
+    if (!DATA) { v.innerHTML = '<div class="empty">Загрузка…</div>'; return; }
+    $("title").textContent = DATA["class"] + " · подгруппа " + DATA.group;
+    var now = rigaNow();
+    $("subtitle").textContent = (dayOf(now.date) || {title: now.date}).title;
+    var h = tab === "home" ? viewHome() : tab === "week" ? viewWeek() : tab === "subs" ? viewSubs() : viewBells();
+    var age = (Date.parse(DATA.updated.replace(" ", "T") + ":00+02:00") || 0);
+    var stale = age && (Date.now() - age) > 3 * 3600 * 1000;
+    h += '<div class="stamp' + (stale ? " stale" : "") + '">данные от ' + esc(dmy(DATA.updated.slice(0, 10)) + " " + DATA.updated.slice(11, 16)) + (stale ? " ⚠️ бот давно не обновлял, возможно, он выключен" : "") + "</div>";
+    v.innerHTML = h;
+  }
+
+  document.querySelector("nav").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    tab = b.getAttribute("data-tab");
+    Array.prototype.forEach.call(document.querySelectorAll("nav button"), function (x) { x.classList.toggle("on", x === b); });
+    window.scrollTo(0, 0); render();
+  });
+  $("view").addEventListener("click", function (e) {
+    var p = e.target.closest(".pill"); if (!p) return;
+    if (p.parentNode.id === "weekpills") weekDay = p.getAttribute("data-date"); else subsDay = p.getAttribute("data-date");
+    render();
+  });
+
+  function load() {
+    fetch("data.json?t=" + Date.now(), {cache: "no-store"}).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { DATA = j; loadError = null; render(); })
+      .catch(function (e) { loadError = e; render(); });
+  }
+  load();
+  setInterval(render, 15000);   // обратный отсчёт
+  setInterval(load, 120000);    // свежие данные
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) load(); });
+})();
+</script>
+</body>
+</html>
