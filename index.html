@@ -79,6 +79,9 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
 .refresh svg{width:22px;height:22px}
 .refresh.spin svg{animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.stats{background:var(--card);border-radius:20px;padding:14px 16px;margin-top:16px}
+.stats b{font-weight:700}
+.stats div{margin-top:4px}
 .err{background:#4a2a2d;color:#ffd0cc;border-radius:16px;padding:14px;margin:16px 0}
 </style>
 </head>
@@ -219,6 +222,37 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   }
   function weekdays() { return DATA.days.filter(function (d) { return d.weekday < 5; }); }
 
+  function weekStats(day) {
+    var t = Date.UTC(+day.date.slice(0, 4), +day.date.slice(5, 7) - 1, +day.date.slice(8, 10));
+    var monday = t - day.weekday * 86400000, st = {lessons: 0, work: 0, span: 0, windows: 0, gap: 0, days: 0, longest: null, shortest: null};
+    DATA.days.forEach(function (d) {
+      var dt = Date.UTC(+d.date.slice(0, 4), +d.date.slice(5, 7) - 1, +d.date.slice(8, 10));
+      if (d.weekday > 4 || dt < monday || dt > monday + 4 * 86400000 || d.off || !d.blocks.length) return;
+      var b = d.blocks, span = mins(b[b.length - 1].end) - mins(b[0].start);
+      st.days++; st.span += span;
+      b.forEach(function (x, i) {
+        st.lessons += x.count || 1; st.work += mins(x.end) - mins(x.start);
+        if (i) { var gap = mins(x.start) - mins(b[i - 1].end); if (gap >= 40) { st.windows++; st.gap += gap; } }
+      });
+      if (!st.longest || span > st.longest.span) st.longest = {d: d, span: span};
+      if (!st.shortest || span < st.shortest.span) st.shortest = {d: d, span: span};
+    });
+    return st;
+  }
+  function hm(m) { m = Math.round(m); var h = Math.floor(m / 60), r = m % 60; return h && r ? h + " ч " + r + " мин" : h ? h + " ч" : r + " мин"; }
+  function statsCard(day) {
+    var st = weekStats(day);
+    if (!st.days) return "";
+    var h = '<div class="stats"><b>📊 Неделя в цифрах</b>';
+    h += "<div>📚 Уроков: <b>" + st.lessons + "</b> (≈ " + hm(st.work) + ")</div>";
+    h += "<div>🏫 В школе: <b>" + hm(st.span) + "</b></div>";
+    h += "<div>🪟 Окон: <b>" + st.windows + "</b>" + (st.windows ? ", вместе " + hm(st.gap) : "") + "</div>";
+    if (st.longest && st.shortest && st.longest.d !== st.shortest.d) {
+      h += "<div>⏳ Длиннее всего: " + DOW[st.longest.d.weekday] + " (" + hm(st.longest.span) + "), короче всего: " + DOW[st.shortest.d.weekday] + " (" + hm(st.shortest.span) + ")</div>";
+    }
+    return h + "</div>";
+  }
+
   function viewWeek() {
     var now = rigaNow(), days = weekdays();
     if (!weekPicked || !dayOf(weekDay)) weekDay = effectiveDate(now);
@@ -228,7 +262,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
     if (d.off) h += '<div class="note">🎉 Выходной: ' + esc(d.off) + "</div>";
     else if (!d.blocks.length) h += '<div class="empty">Уроков нет 🎉</div>';
     else h += '<div class="list">' + d.blocks.map(function (b) { return lessonRow(b, stateOf(b, now, d.date === now.date)); }).join("") + "</div>";
-    return h;
+    return h + statsCard(d);
   }
 
   function viewSubs() {
