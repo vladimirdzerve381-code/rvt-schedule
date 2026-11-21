@@ -106,7 +106,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   if (tg) {
     try { tg.ready(); tg.expand(); if (tg.colorScheme) document.documentElement.setAttribute("data-theme", tg.colorScheme); } catch (e) {}
   }
-  var DATA = null, tab = "home", weekDay = null, subsDay = null, loadError = null, loadedAt = null, refreshFailed = false;
+  var DATA = null, tab = "home", weekDay = null, subsDay = null, weekPicked = false, subsPicked = false, loadError = null, loadedAt = null, refreshFailed = false;
   var DOW = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
   var KIND = {cancel: "ОТМЕНЕНО", change: "ИЗМЕНЕНИЕ", moved: "ПЕРЕНОС", added: "ДОБАВЛЕНО"};
   var ICON = {cancel: "✕", change: "↗", moved: "⇄", added: "＋"};
@@ -208,11 +208,20 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
         (mark && mark(d) ? '<span class="dot"></span>' : "") + "</button>";
     }).join("") + "</div>";
   }
+  var SWITCH_HOUR = 19;   // после этого часа (по Риге) «Неделя» сама переходит на следующий учебный день
+  // Какой день показывать по умолчанию: сегодня до 19:00 в учебный день, иначе следующий учебный день
+  function effectiveDate(now) {
+    var days = weekdays(), d = dayOf(now.date);
+    if (d && d.weekday < 5 && !d.off && now.min < SWITCH_HOUR * 60) return now.date;
+    var after = days.filter(function (x) { return x.date > now.date && !x.off; });
+    if (after.length) return after[0].date;
+    return days.length ? days[days.length - 1].date : now.date;
+  }
   function weekdays() { return DATA.days.filter(function (d) { return d.weekday < 5; }); }
 
   function viewWeek() {
     var now = rigaNow(), days = weekdays();
-    if (!weekDay || !dayOf(weekDay)) weekDay = (dayOf(now.date) && dayOf(now.date).weekday < 5) ? now.date : (days[0] && days[0].date);
+    if (!weekPicked || !dayOf(weekDay)) weekDay = effectiveDate(now);
     var d = dayOf(weekDay), h = pills(days, weekDay, "weekpills", function (x) { return x.subs.length; });
     if (!d) return h;
     h += '<div class="sub" style="margin-top:8px">' + esc(d.title) + "</div>" + notes(d);
@@ -223,10 +232,10 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   }
 
   function viewSubs() {
-    var now = rigaNow(), days = weekdays().filter(function (d) { return d.date >= now.date; });
+    var now = rigaNow(), from = effectiveDate(now), days = weekdays().filter(function (d) { return d.date >= from; });
     var checked = days.filter(function (d) { return d.checked; });
     var pick = checked.length ? checked : days.slice(0, 2);
-    if (!subsDay || !pick.some(function (d) { return d.date === subsDay; })) {
+    if (!subsPicked || !pick.some(function (d) { return d.date === subsDay; })) {
       var withSubs = pick.filter(function (d) { return d.subs.length; })[0];
       subsDay = (withSubs || pick[0] || {}).date;
     }
@@ -283,7 +292,7 @@ nav button.on{background:var(--card2);color:var(--text);font-weight:700}
   });
   $("view").addEventListener("click", function (e) {
     var p = e.target.closest(".pill"); if (!p) return;
-    if (p.parentNode.id === "weekpills") weekDay = p.getAttribute("data-date"); else subsDay = p.getAttribute("data-date");
+    if (p.parentNode.id === "weekpills") { weekDay = p.getAttribute("data-date"); weekPicked = true; } else { subsDay = p.getAttribute("data-date"); subsPicked = true; }
     render();
   });
 
