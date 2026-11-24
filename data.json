@@ -2,7 +2,7 @@
  "class": "DT1-1",
  "group": "1",
  "tz": "Europe/Riga",
- "updated": "2026-11-24 07:14",
+ "updated": "2026-11-24 07:15",
  "published_until": "2026-11-29",
  "bells": [
   {
@@ -224,7 +224,7 @@
     }
    ],
    "shift": [],
-   "checked": null,
+   "checked": "07:14",
    "subs": []
   },
   {
