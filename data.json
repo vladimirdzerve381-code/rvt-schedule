@@ -2,7 +2,7 @@
  "class": "DT1-1",
  "group": "1",
  "tz": "Europe/Riga",
- "updated": "2026-11-25 12:34",
+ "updated": "2026-11-25 12:54",
  "published_until": "2026-11-29",
  "bells": [
   {
@@ -224,7 +224,7 @@
     }
    ],
    "shift": [],
-   "checked": "12:34",
+   "checked": "12:54",
    "subs": []
   },
   {
@@ -297,7 +297,7 @@
    "shift": [
     "🪟 Окно: 12:50–13:30 (нет 6-го урока)"
    ],
-   "checked": "12:34",
+   "checked": "12:54",
    "subs": [
     {
      "kind": "cancel",
