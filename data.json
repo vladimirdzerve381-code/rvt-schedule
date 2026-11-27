@@ -2,7 +2,7 @@
  "class": "DT1-1",
  "group": "1",
  "tz": "Europe/Riga",
- "updated": "2026-11-27 19:39",
+ "updated": "2026-11-27 19:59",
  "published_until": "2026-12-06",
  "bells": [
   {
@@ -366,7 +366,7 @@
     }
    ],
    "shift": [],
-   "checked": "19:39",
+   "checked": "19:59",
    "subs": []
   },
   {
@@ -433,7 +433,7 @@
     }
    ],
    "shift": [],
-   "checked": "19:39",
+   "checked": "19:59",
    "subs": []
   },
   {
@@ -468,13 +468,13 @@
     },
     {
      "num": 4,
-     "last": 5,
+     "last": 6,
      "start": "10:55",
-     "end": "12:45",
+     "end": "13:30",
      "subject": "Математика",
      "teacher": "Zeikats Lourenss",
      "room": "502",
-     "count": 2,
+     "count": 3,
      "emoji": "📐",
      "subs": []
     },
@@ -489,6 +489,18 @@
      "count": 3,
      "emoji": "💻",
      "subs": []
+    },
+    {
+     "num": 10,
+     "last": 11,
+     "start": "15:50",
+     "end": "17:15",
+     "subject": "Разработка простых алгоритмов (практика)",
+     "teacher": "Cīrulis Aigars",
+     "room": "131",
+     "count": 2,
+     "emoji": "👨‍💻",
+     "subs": []
     }
    ],
    "shift": [],
@@ -502,27 +514,27 @@
    "off": null,
    "blocks": [
     {
-     "num": 2,
-     "last": 2,
-     "start": "09:15",
-     "end": "09:55",
+     "num": 3,
+     "last": 5,
+     "start": "10:10",
+     "end": "12:45",
      "subject": "Латышский язык и литература",
      "teacher": "Kovtona Ligita",
-     "room": "505",
-     "count": 1,
+     "room": "230",
+     "count": 3,
      "emoji": "🇱🇻",
      "subs": []
     },
     {
-     "num": 3,
-     "last": 4,
-     "start": "10:10",
-     "end": "11:35",
-     "subject": "Латышский язык и литература",
-     "teacher": "Kovtona Ligita",
-     "room": "230",
-     "count": 2,
-     "emoji": "🇱🇻",
+     "num": 7,
+     "last": 7,
+     "start": "13:35",
+     "end": "14:15",
+     "subject": "Физкультура",
+     "teacher": "Belinska Ina",
+     "room": "спортзал",
+     "count": 1,
+     "emoji": "🏃",
      "subs": []
     }
    ],
